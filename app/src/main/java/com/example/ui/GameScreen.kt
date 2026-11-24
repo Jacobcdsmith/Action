@@ -133,6 +133,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
     var jumpHeld by remember { mutableStateOf(false) }
     var jumpJustPressed by remember { mutableStateOf(false) }
     var jumpJustReleased by remember { mutableStateOf(false) }
+    var dashHeld by remember { mutableStateOf(false) }
     var dashJustPressed by remember { mutableStateOf(false) }
 
     val isDialogueOpen = dialogueSession.activeNpc != null
@@ -292,7 +293,12 @@ fun GameScreen(modifier: Modifier = Modifier) {
                         true
                     }
                     Key.ShiftLeft, Key.ShiftRight -> {
-                        if (isDown) dashJustPressed = true
+                        if (isDown && !dashHeld) {
+                            dashHeld = true
+                            dashJustPressed = true
+                        } else if (isUp) {
+                            dashHeld = false
+                        }
                         true
                     }
                     Key.E, Key.F -> {
@@ -300,9 +306,12 @@ fun GameScreen(modifier: Modifier = Modifier) {
                             val npc = hud.nearbyNpc
                             if (npc != null) {
                                 openNpcConversation(npc)
-                            } else if (keyEvent.key == Key.E) {
+                            } else if (keyEvent.key == Key.E && !dashHeld) {
+                                dashHeld = true
                                 dashJustPressed = true
                             }
+                        } else if (isUp && keyEvent.key == Key.E) {
+                            dashHeld = false
                         }
                         true
                     }
