@@ -1,0 +1,6 @@
+{
+  "name": "WorldShift",
+  "description": "A generative 2D side-scrolling action-platformer Android app where Gemini AI synthesizes worlds, indexed pixel sprites, parallax biomes, and procedural audio in real time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
